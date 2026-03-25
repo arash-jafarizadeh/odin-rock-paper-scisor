@@ -2,31 +2,69 @@
 let humanScore = 0 
 let computerScore = 0 
 
+let humanChoice = ""
+// let computerChoice = ""
+let message = ""
+
+let rounds = 0;
+
+const uList = document.querySelector("ul");
+
+const rockBtn = document.getElementsByClassName("rock"); //document.querySelector("rock");
+const paperBtn = document.getElementsByClassName("paper");
+const scissorBtn = document.querySelector("#scissor");
+
+rockBtn[0].addEventListener("click", () => {
+    humanChoice = "rock"
+    // console.log(humanChoice)
+    // chooseRock();        
+    playRound();
+});
+
+paperBtn[0].addEventListener("click", () => {
+    humanChoice = "paper"
+    // console.log(humanChoice)
+    // chooseRock();        
+    playRound();
+});
+    
+scissorBtn.addEventListener("click", function (e) {
+    humanChoice = "scissor"
+    // console.log(humanChoice)
+    playRound();
+});
+
+
 function getComputerChoice(){
     const choiceInt = Math.floor(Math.random() * 3)
     return (choiceInt == 0) ? "rock" : (choiceInt == 1) ? "paper" : "scissor";
 }
 
-function getHumanChoice(){
-    return prompt("rock, paper or scissor???");
-}
+// function getHumanChoice(){
+//     return prompt("rock, paper or scissor???");
+// }
 
-function playRound( humanChoice, computerChoice ){            
-    console.log(`You selected ${humanChoice.toLowerCase()} and machine selected ${computerChoice}`)
+function playRound( ){            
+// function playRound( humanChoice, computerChoice ){            
+    let computerChoice = getComputerChoice(); // computerChoice = getComputerChoice()
+    // console.log(`You selected ${humanChoice} and machine selected ${computerChoice}`)
     if (humanChoice === computerChoice) {
-        // message = `Draw! Both chose ${playerChoice}.`;
-        console.log(`It's a draw, no one wins!`)
+        message = `Draw! Both chose ${humanChoice}.`;
     } else if (
-        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "rock" && computerChoice === "scissor") ||
         (humanChoice === "paper" && computerChoice === "rock") ||
-        (humanChoice === "scissors" && computerChoice === "paper")
+        (humanChoice === "scissor" && computerChoice === "paper")
     ) {
-        // message = `You win! ${playerChoice} beats ${computerChoice}.`;
-        console.log(`You win, ${humanChoice.toLowerCase()} beats ${computerChoice}`)
+        message = `You win! ${humanChoice} beats ${computerChoice}.`;
+        humanScore += 1;
     } else {
-        // message = `You lose! ${computerChoice} beats ${playerChoice}.`;
-        console.log(`You lose, ${computerChoice} beats ${humanChoice.toLowerCase()}`)
+        message = `You lose! ${computerChoice} beats ${humanChoice}.`;
+        computerScore += 1;
     }       
+    console.log(message)
+    showResult(message)
+    console.log(computerScore)
+    console.log(humanScore)
 }
 
 function playGame(){
@@ -48,47 +86,26 @@ function playGame(){
     }
 }
 
-let humanChoice = ""
 
-const rockButton = document.querySelector("#rock");
-const paperButton = document.querySelector("#paper");
-const scissorButton = document.querySelector("#scissor");
-
-rockButton.addEventListener("click", function (e) {
-    humanChoice = "rock"
-    console.log(humanChoice)
-});
-
-paperButton.addEventListener("click", function (e) {
-    // e.target.style.background = "blue";
-    humanChoice = "paper"
-    console.log(humanChoice)
-});
-
-
-scissorButton.addEventListener("click", function (e) {
-    humanChoice = "scissor"
-    console.log(humanChoice)
-});
-
-// let test1 = document.getElementsByClassName("paper")
-// console.log(test1)
-
-// let test2 = document.querySelector("rock")
-// console.log(test2)
-// test2.addEventListener("click", function (event) {
-    //     console.log(event);
-// });
-    
-// const btn =  document.querySelectorAll("button");
-// console.log(btn)
-
-// const uList = document.querySelector("ul");
 // const btn =  document.querySelector("button");
-// btn.addEventListener("click", function (e) {
+
+// btn.addEventListener("click", (e) => {
 //       console.log(e.target.tagName);
-//       console.log(e.button);
+//     //   console.log(e.button);
+//       console.log("btttn")
 // });
+
+function showResult(message){
+
+    const listItem = document.createElement("li");
+    const listSpan = document.createElement("span");
+
+    listItem.appendChild(listSpan);
+    listSpan.textContent =  message;
+
+    uList.appendChild(listItem)
+
+};
 
 // const input = document.querySelector("input");
 
